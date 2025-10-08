@@ -1,12 +1,17 @@
 import numpy as np
+import time
+start_time = time.time()
 
-n = 6
+# Maximum number of forces involved in either side of battle
+n = 9
+# Quality of the outcome where both players' forces get wiped out
 a = 0.25
 
 # Each face is an array [a,b]: a = damage inflicted to defender; b = damage inflicted to attacker.
 attackDice = [[0,0], [0,0], [1,0], [1,0], [1,0], [2,1]]
 defenceDice = [[0,0], [0,0], [-1,0], [-1,0], [0,1], [-1,1]]
 
+# This iterates produces the probability of reaching each state from the previous one in 1 dice roll
 def ChangesMatrix(n,m):
     P = [[0 for j in range(m+1)] for i in range(n+1)]
     P[n][m] = 1
@@ -35,7 +40,8 @@ def ChangesMatrix(n,m):
         P = newP
 
     return P          
-                    
+
+# This calculates the quality of each outcome by iterating on the quality of each reachable outcome and the probability to reach it                    
 def OutcomeMatrix(n,a):
     n += 1
     M = [[0 for j in range(n)] for i in range(n)]
@@ -68,21 +74,4 @@ print(f"With the dice: \nAttack Dice {attackDice} \nDefence Dice {defenceDice}")
 print("")
 outcome = np.matrix(OutcomeMatrix(n,a))
 print(outcome)
-
-import matplotlib.pyplot as plt
-from matplotlib import cm
-
-plt.style.use('_mpl-gallery')
-
-X, Y = np.meshgrid([i for i in range(n+1)], [i for i in range(n+1)])
-Z = outcome
-
-# Plot
-fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-
-ax.contour(X, Y, Z, zdir='z')
-ax.contour(X, Y, Z, zdir='x')
-ax.contour(X, Y, Z, zdir='y')
-
-plt.show()
+print("--- %s seconds ---" % (time.time() - start_time))
