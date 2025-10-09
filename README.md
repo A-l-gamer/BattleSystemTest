@@ -23,7 +23,10 @@ If both were wiped out, this wasn't as clear, but after some playtesting I reach
 One can interpret the quality of an attack as the probability of eventually winning if they keep attacking until either side is defeated. This is imperfect as there's the possible case of elliminating both sides, whose quality of outcome is very case dependent.
 
 # Outcome
-The following is the outcome matrix with n = 9, a = 0.25, and the following dices:
+The following is the outcome matrix with n = 9, a = 0.25, and the following dice:
+
 attackDice = [[0,0], [0,0], [1,0], [1,0], [1,0], [2,1]]
 defenceDice = [[0,0], [0,0], [-1,0], [-1,0], [0,1], [-1,1]]
+Each sub-array represents a face of the dice. The 1st number is the damage dealt to the defender, the 2nd is the damage dealt to the attacker.
+
 <img width="802" height="512" alt="image" src="https://github.com/user-attachments/assets/676890d5-5083-4968-948c-4d5e98795e75" />
